@@ -1,14 +1,21 @@
 "use strict";
 exports.__esModule = true;
 var actions = require("../types/todos");
-function addTodoActionHelper(id, text) {
+function addTodoActionHelper(text) {
     return {
         type: actions.ADD_TODO_ACTION,
-        id: id,
         text: text
     };
 }
 exports.addTodoActionHelper = addTodoActionHelper;
+function createNewTodoActionHelper(id, text) {
+    return {
+        type: actions.ADD_TODO_ACTION,
+        text: text,
+        id: id
+    };
+}
+exports.createNewTodoActionHelper = createNewTodoActionHelper;
 function toggleTodoActionHelper(id) {
     return {
         type: actions.TOGGLE_TODO_ACTION,

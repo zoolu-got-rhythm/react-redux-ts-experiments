@@ -7,8 +7,12 @@ export interface baseAction{
 }
 
 export interface add_todo_action extends baseAction{
-    readonly id: number; 
     readonly text: string; 
+}
+
+export interface make_todo_action extends baseAction{
+    readonly text: string; 
+    readonly id: number; 
 }
 
 export interface toggle_todo_action extends baseAction{
@@ -21,11 +25,18 @@ export interface delete_todo_action extends baseAction{
 
 export type todo_actions = add_todo_action | toggle_todo_action | delete_todo_action; 
 
-export function addTodoActionHelper(id: number, text: string): add_todo_action{
+export function addTodoActionHelper(text: string): add_todo_action{
     return {
         type: actions.ADD_TODO_ACTION, 
-        id,
         text, 
+    }
+}
+
+export function createNewTodoActionHelper(id: number, text: string): make_todo_action{
+    return {
+        type: actions.ADD_TODO_ACTION, 
+        text, 
+        id
     }
 }
 

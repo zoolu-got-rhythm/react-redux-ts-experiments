@@ -6,7 +6,8 @@ var store = store_1["default"]();
 var unsubscribe = store.subscribe(function () {
     console.log(store.getState());
 });
-store.dispatch(todos_1.addTodoActionHelper(0, "first todo"));
-store.dispatch(todos_1.addTodoActionHelper(store.getState().todosReducer.length, "second todo"));
+store.dispatch(todos_1.addTodoActionHelper("first todo"));
+store.dispatch(todos_1.addTodoActionHelper("second todo"));
 store.dispatch(todos_1.toggleTodoActionHelper(1));
 store.dispatch(todos_1.deleteTodoActionHelper(0));
+store.dispatch(todos_1.addTodoActionHelper(""));

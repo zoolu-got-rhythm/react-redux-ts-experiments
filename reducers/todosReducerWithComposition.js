@@ -11,6 +11,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
+var todos_1 = require("../actions/todos");
 var actions = require("../types/todos");
 // reducer composition
 var todo = function (state, action) {
@@ -18,7 +19,6 @@ var todo = function (state, action) {
         case actions.ADD_TODO_ACTION:
             var castedAction = action;
             return {
-                id: castedAction.id,
                 text: castedAction.text,
                 completed: false
             };
@@ -27,25 +27,30 @@ var todo = function (state, action) {
     }
 };
 var todos = function (state, action) {
-    if (state === void 0) { state = []; }
+    if (state === void 0) { state = { numberOfTodosMade: 0, todosArray: [] }; }
     switch (action.type) {
         case actions.ADD_TODO_ACTION:
-            return state.concat([todo(undefined, action)]);
+            var actionAsAddTodoAction = action;
+            return {
+                numberOfTodosMade: state.numberOfTodosMade + 1,
+                todosArray: state.todosArray.concat([todo(undefined, todos_1.createNewTodoActionHelper(state.numberOfTodosMade + 1, actionAsAddTodoAction.text))])
+            };
         case actions.DELETE_TODO_ACTION:
             console.log("delete action hit");
             var castedAction = action;
             if (castedAction.idOfTodoToDelete === 0)
-                return state.slice(1);
-            if (castedAction.idOfTodoToDelete === state.length)
-                return state.slice(0, state.length - 1);
-            return state.slice(0, castedAction.idOfTodoToDelete)
-                .concat().slice(castedAction.idOfTodoToDelete + 1, state.length);
+                return __assign({}, state, { todosArray: state.todosArray.slice(1) });
+            if (castedAction.idOfTodoToDelete === state.todosArray.length)
+                return __assign({}, state, { todosArray: state.todosArray.slice(0, state.todosArray.length - 1) });
+            return __assign({}, state, { todosArray: state.todosArray.slice(0, castedAction.idOfTodoToDelete)
+                    .concat().slice(castedAction.idOfTodoToDelete + 1, state.todosArray.length) });
         case actions.TOGGLE_TODO_ACTION:
             var castedActionAsToggle_1 = action;
-            // @ts-ignore
-            return state.map(function (todo, index) {
-                return index === castedActionAsToggle_1.idOfTodoToToggle ? __assign({}, todo, { completed: !todo.completed }) : todo;
-            });
+            return __assign({}, state, { 
+                // @ts-ignore
+                todosArray: state.todosArray.map(function (todo, index) {
+                    return index === castedActionAsToggle_1.idOfTodoToToggle ? __assign({}, todo, { completed: !todo.completed }) : todo;
+                }) });
         default:
             return state;
     }

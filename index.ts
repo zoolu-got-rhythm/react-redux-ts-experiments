@@ -6,10 +6,11 @@ let unsubscribe = store.subscribe(()=>{
     console.log(store.getState());
 });
 
-store.dispatch(addTodoActionHelper(0, "first todo"));
-store.dispatch(addTodoActionHelper(store.getState().todosReducer.length, "second todo"));
+store.dispatch(addTodoActionHelper("first todo"));
+store.dispatch(addTodoActionHelper("second todo"));
 store.dispatch(toggleTodoActionHelper(1));
 store.dispatch(deleteTodoActionHelper(0));
+store.dispatch(addTodoActionHelper("")); 
 
 
 
