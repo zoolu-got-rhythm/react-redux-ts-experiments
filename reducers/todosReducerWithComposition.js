@@ -36,7 +36,6 @@ var todos = function (state, action) {
                 todosArray: state.todosArray.concat([todo(undefined, todos_1.createNewTodoActionHelper(state.numberOfTodosMade + 1, actionAsAddTodoAction.text))])
             };
         case actions.DELETE_TODO_ACTION:
-            console.log("delete action hit");
             var castedAction = action;
             if (castedAction.idOfTodoToDelete === 0)
                 return __assign({}, state, { todosArray: state.todosArray.slice(1) });

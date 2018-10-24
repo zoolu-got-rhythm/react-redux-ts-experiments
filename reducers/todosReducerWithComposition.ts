@@ -49,13 +49,13 @@ const todos = (state: TODOS_STATE = {numberOfTodosMade: 0, todosArray: []}, acti
                 return {
                     ...state, 
                     todosArray: state.todosArray.slice(0, state.todosArray.length - 1)
-                }
+                };
                 
             return {
                 ...state, 
                 todosArray: state.todosArray.slice(0, castedAction.idOfTodoToDelete)
                 .concat().slice(castedAction.idOfTodoToDelete + 1, state.todosArray.length)
-            }
+            };
         case actions.TOGGLE_TODO_ACTION:
             let castedActionAsToggle = <toggle_todo_action> action;
             return {
@@ -65,10 +65,9 @@ const todos = (state: TODOS_STATE = {numberOfTodosMade: 0, todosArray: []}, acti
                     return index === castedActionAsToggle.idOfTodoToToggle ?
                         {...todo, completed: !todo.completed} : todo;
                 })
-            }
+            };
         default:
             return state;
-
     }
 };
 
